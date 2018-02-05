@@ -4,7 +4,8 @@ export default StyleSheet.create({
     fontSize: 40,
     fontWeight: 'bold',
     paddingTop: '5%',
-    marginBottom: '10%'
+    marginBottom: '10%',
+    color: '#222'
   },
   container: {
     flex: 1,
@@ -22,5 +23,8 @@ export default StyleSheet.create({
   },
   greenText: {
     color: 'green'
+  },
+  registerButton: {
+    marginTop: '5%'
   }
 });

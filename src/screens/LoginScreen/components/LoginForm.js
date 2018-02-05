@@ -1,38 +1,27 @@
 // Formik x React Native example
 import React from 'react';
 import { Button, TextInput, View } from 'react-native';
-import { withFormik } from 'formik';
+import { reduxForm, Field } from 'redux-form';
 
 import Input from '../../../components/Input';
 
-const enhancer = withFormik({
-  /*...*/
-  handleSubmit: (values, { setSubmitting }) => {
-    setTimeout(() => {
-      alert(JSON.stringify(values, null, 2));
-      setSubmitting(false);
-    }, 1000);
-  }
-});
-
-const MyReactNativeForm = props => (
+const LoginForm = ({ handleSubmit, login, invalid, submitting, error }) => (
   <View>
-    <Input
-      onChangeText={text => props.setFieldValue('username', text)}
-      value={props.values.email}
+    <Field
+      component={Input}
       label={'Användarnamn'}
       placeholder="Användarnamn"
+      name="username"
     />
-    <Input
-      onChangeText={text => props.setFieldValue('password', text)}
-      password
-      value={props.values.email}
+    <Field
+      name="password"
+      component={Input}
+      secureTextEntry
       label="Lösenord"
       placeholder="Lösenord"
-      isPassword
     />
-    <Button onPress={onSubmit => props.handleSubmit(onSubmit)} title="Submit" />
+    <Button onPress={handleSubmit(login)} title="Logga in" />
   </View>
 );
 
-export default enhancer(MyReactNativeForm);
+export default reduxForm({ form: 'login' })(LoginForm);

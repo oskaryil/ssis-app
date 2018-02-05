@@ -3,8 +3,9 @@ import { StyleSheet, Text, View } from 'react-native';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/es/integration/react';
 
-import Router from './src/router';
+import { SignedInNav, SignedOutNav } from './src/router';
 import configureStore from './src/store';
+import AppRouter from './src/AppRouter';
 
 const { store, persistor } = configureStore();
 
@@ -13,7 +14,7 @@ export default class App extends React.Component {
     return (
       <Provider store={store}>
         <PersistGate loading={null} persistor={persistor}>
-          <Router />
+          <AppRouter />
         </PersistGate>
       </Provider>
     );

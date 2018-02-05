@@ -3,6 +3,8 @@ import { Ionicons } from '@expo/vector-icons';
 import { StackNavigator, TabNavigator, TabBarBottom } from 'react-navigation';
 
 import LoginScreen from '../screens/LoginScreen/login.screen';
+import FillOutInformationScreen from '../screens/FillOutInformationScreen';
+import HomeScreen from '../screens/HomeScreen';
 
 // export default TabNavigator(
 //   {
@@ -35,6 +37,13 @@ import LoginScreen from '../screens/LoginScreen/login.screen';
 //   }
 // );
 
-export default StackNavigator({
-  Login: { screen: LoginScreen }
+const SignedOutNav = StackNavigator({
+  Login: { screen: LoginScreen },
+  FillOutInformation: { screen: FillOutInformationScreen }
 });
+
+const SignedInNav = TabNavigator({
+  Home: { screen: HomeScreen }
+});
+
+export { SignedInNav, SignedOutNav };

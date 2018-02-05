@@ -1,21 +1,40 @@
 import React, { Component } from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, TouchableOpacity, Alert } from 'react-native';
+import { connect } from 'react-redux';
 
 import LoginForm from './components/LoginForm';
 import styles from './login.styles';
+import { login } from '../../redux/auth/actions';
 
 class LoginScreen extends Component {
   static navigationOptions = {
     header: null
   };
+
+  async login(values) {
+    try {
+      await this.props.login(values);
+      this.props.navigation.navigate('FillOutInformation');
+    } catch (err) {
+      Alert.alert('Woopsie!', 'Användarnamn eller lösenord är inkorrekta.');
+    }
+  }
+
   render() {
     return (
       <View style={styles.container}>
         <Text style={styles.mainHeader}>Logga in</Text>
-        <LoginForm />
+        <LoginForm login={this.login.bind(this)} />
+        <Text style={styles.registerButton}>
+          Du loggar in med ditt SSIS konto
+        </Text>
       </View>
     );
   }
 }
 
-export default LoginScreen;
+function mapStateToProps(state) {
+  return { auth: state.auth, form: state.form };
+}
+
+export default connect(mapStateToProps, { login })(LoginScreen);
