@@ -5,19 +5,25 @@ export default StyleSheet.create({
     flex: 1
   },
   contentContainer: {
-    paddingVertical: '8%',
+    paddingTop: '20%',
+    paddingBottom: '10%',
     paddingHorizontal: '5%'
   },
   dayText: {
     fontWeight: 'bold',
-    fontSize: 18
+    fontSize: 18,
+    paddingBottom: 2
   },
   dishText: {
-    padding: 4
+    padding: 4,
+    paddingLeft: 5
   },
   header: {
     fontSize: 26,
     fontWeight: 'bold',
     marginBottom: '2%'
+  },
+  card: {
+    paddingBottom: '5%'
   }
 });

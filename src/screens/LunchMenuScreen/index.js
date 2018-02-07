@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, TouchableOpacity, Alert, ScrollView } from 'react-native';
 import { connect } from 'react-redux';
+import { Card } from '@shoutem/ui';
 
 import commonStyles from '../../styles/common.styles';
 import lunchMenuStyles from './lunchMenu.styles';
@@ -39,21 +40,61 @@ class LunchMenuScreen extends Component {
   renderLunchMenu = () => {
     const keys = Object.keys(lunchMenu);
     // return keys.map(day => {
-    //   const dishes = lunchMenu[day].map(dish => <Text>{dish}</Text>);
     //   // console.log(dishes);
     //   return (
     //     <Text>{day}</Text>
     //
     //   );
     // });
+    //
+    //
     const toRender = [];
     for (let day in lunchMenu) {
-      toRender.push(<Text style={lunchMenuStyles.dayText}>{day}</Text>);
+      const dishes = lunchMenu[day].map(dish => <Text>{dish}</Text>);
+      // toRender.push(
+      //   <Text style={lunchMenuStyles.dayText} key={day}>
+      //     {day}
+      //   </Text>
+      // );
+      toRender.push(<View>{dishes}</View>);
       for (let dish of lunchMenu[day]) {
-        toRender.push(<Text style={lunchMenuStyles.dishText}>{dish}</Text>);
+        // toRender.push(
+        //   <Text style={lunchMenuStyles.dishText} key={dish}>
+        //     {dish}
+        //   </Text>
+        // );
       }
     }
     return toRender;
+  };
+
+  renderLunch = () => {
+    const toRender = [];
+    for (let day in lunchMenu) {
+      toRender.push(
+        <Card style={{ padding: '3%', width: '98%' }} key={day}>
+          <Text style={lunchMenuStyles.dayText} key={day}>
+            {day}
+          </Text>
+          {lunchMenu[day].map(dish => (
+            <Text style={lunchMenuStyles.dishText} key={dish}>
+              {dish}
+            </Text>
+          ))}
+        </Card>
+      );
+    }
+    return toRender;
+    // let day = lunchMenu[monday]
+    // return(
+    //   <View>
+    //     <Text>{day}</Text>
+    //     <Text>{day.meat}</Text>
+    //     <Text>{dishes.fish}</Text>
+    //     <Text>{dishes.veg}</Text>
+    //   </View>
+    // )
+    // }
   };
 
   render() {
@@ -66,7 +107,7 @@ class LunchMenuScreen extends Component {
         <View style={lunchMenuStyles.lunchMenuBox}>
           {/* <Text style={lunchMenuStyles.dayText}>Måndag</Text>
           <Text style={lunchMenuStyles.dayText}>Tisdag</Text> */}
-          {this.renderLunchMenu()}
+          {this.renderLunch()}
         </View>
       </ScrollView>
     );
