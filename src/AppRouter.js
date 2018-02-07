@@ -5,7 +5,7 @@ import { AsyncStorage } from 'react-native';
 
 class AppRouter extends Component {
   render() {
-    if (this.props.auth.loggedIn) {
+    if (this.props.auth.loggedIn && this.props.auth.informationFilledOut) {
       return <SignedInNav />;
     } else {
       return <SignedOutNav />;
