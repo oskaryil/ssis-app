@@ -10,6 +10,7 @@ import {
 const INITIAL_STATE = {
   loggedIn: false,
   user: null,
+  informationFilledOut: false,
   loading: false
 };
 
@@ -33,7 +34,8 @@ export default (state = INITIAL_STATE, action) => {
       return {
         ...state,
         loading: false,
-        user: { ...state.user, ...action.payload }
+        user: { ...state.user, ...action.payload },
+        informationFilledOut: true
       };
     default:
       return state;
