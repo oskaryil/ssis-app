@@ -77,59 +77,20 @@ class HomeScreen extends Component {
         <RNText style={homeStyles.header}>
           Välkommen {this.props.auth.user.name}
         </RNText>
-        <Card
-          style={{
-            width: '95%',
-            alignSelf: 'center',
-            padding: '5%',
-            marginTop: '5%',
-            shadowColor: '#222222',
-            shadowOffset: {
-              height: 5,
-              width: 5
-            },
-            borderRadius: 8
-          }}
-        >
+        <Card style={commonStyles.card}>
           <Heading>Dagens Lunch</Heading>
           <View>
             <Text>Kött: Köttfärslimpa med potatispuré och lingon</Text>
           </View>
         </Card>
-        <Card
-          style={{
-            width: '95%',
-            alignSelf: 'center',
-            padding: '5%',
-            marginTop: '5%',
-            shadowColor: '#222222',
-            shadowOffset: {
-              height: 5,
-              width: 5
-            },
-            borderRadius: 8
-          }}
-        >
+        <Card style={commonStyles.card}>
           <Heading>Canvas avisering</Heading>
           <View>
             <Text>Nytt betyg rapporterat i Svenska 3</Text>
           </View>
         </Card>
         {this.state.currentClass !== null && (
-          <Card
-            style={{
-              width: '95%',
-              alignSelf: 'center',
-              padding: '5%',
-              marginTop: '5%',
-              shadowColor: '#222222',
-              shadowOffset: {
-                height: 5,
-                width: 5
-              },
-              borderRadius: 8
-            }}
-          >
+          <Card style={commonStyles.card}>
             <Heading>Lektion just nu</Heading>
             <View>
               <Text>{this.state.currentClass.subject}</Text>
