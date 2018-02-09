@@ -13,7 +13,6 @@ class FillOutInformationScreen extends Component {
 
   submitFillOutInformation(values) {
     this.props.fillOutInformation(values);
-    this.props.navigation.navigate('Home');
   }
 
   render() {

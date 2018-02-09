@@ -6,6 +6,7 @@ import LoginScreen from '../screens/LoginScreen/login.screen';
 import FillOutInformationScreen from '../screens/FillOutInformationScreen';
 import HomeScreen from '../screens/HomeScreen';
 import LunchMenuScreen from '../screens/LunchMenuScreen';
+import SettingsScreen from '../screens/SettingsScreen';
 
 // export default TabNavigator(
 //   {
@@ -46,7 +47,8 @@ const SignedOutNav = StackNavigator({
 const SignedInNav = TabNavigator(
   {
     Hem: { screen: HomeScreen },
-    Lunch: { screen: LunchMenuScreen }
+    Lunch: { screen: LunchMenuScreen },
+    Inställningar: { screen: SettingsScreen }
   },
   {
     navigationOptions: ({ navigation }) => ({
@@ -59,6 +61,8 @@ const SignedInNav = TabNavigator(
           iconName = `ios-options${focused ? '' : '-outline'}`;
         } else if (routeName === 'Lunch') {
           iconName = `ios-restaurant${focused ? '' : '-outline'}`;
+        } else if (routeName === 'Inställningar') {
+          iconName = `ios-settings${focused ? '' : '-outline'}`;
         }
 
         // You can return any component that you like here! We usually use an

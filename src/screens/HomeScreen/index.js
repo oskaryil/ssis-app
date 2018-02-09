@@ -6,6 +6,7 @@ import axios from 'axios';
 
 import commonStyles from '../../styles/common.styles';
 import homeStyles from './home.styles';
+import { getCurrentClass } from '../../redux/schedule/actions';
 
 class HomeScreen extends Component {
   static navigationOptions = {
@@ -15,60 +16,77 @@ class HomeScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentClass: null,
-      lastCheckedForClass: new Date().getTime()
+      lunchOfTheDay: null
     };
   }
 
   componentWillMount() {
-    this.getCurrentClass();
+    this.props.getCurrentClass();
+    this.getLunchOfTheDay();
   }
 
   componentDidMount() {
-    setInterval(this.getCurrentClass, 100000);
+    if (this.props.schedule.error.length > 4) {
+      alert(this.props.schedule.error);
+    }
+    setInterval(this.props.getCurrentClass, 100000);
   }
 
   /*
     Function for getting the current class relative to the current time.
-    Fetches data from api.ssis.nul/cal with the class of the user as an arg
+      Fetches data from api.ssis.nul/cal with the class of the user as an arg
     This is then displayed in a card in the render method
    */
-  getCurrentClass = async () => {
-    /*
-    * const fakeClassData = {
-    *  start_time: '18:00',
-    *  end_time: '20:00',
-    *  subject: 'Webbutveckling 1'
-    * };
-    */
-    const { data } = await axios.get(
-      `https://api.ssis.nu/cal/?room=${this.props.auth.user.class}`
-    );
-    const now = new Date().getTime();
-    let currentClass;
-    for (let i = 0; i < data.length; i++) {
-      const nowDate = new Date();
-      var date =
-        nowDate.getFullYear() +
-        '-0' +
-        (nowDate.getMonth() + 1) +
-        '-0' +
-        nowDate.getDate();
-      let start = Date.parse(`${date} ${data[i].start_time}`);
-      let end = Date.parse(`${date} ${data[i].end_time}`);
-      if (start > end) {
-        // check if start comes before end
-        var temp = start; // if so, assume it's across midnight
-        start = end; // and swap the dates
-        end = temp;
-      }
-      if (now < end && now > start) {
-        currentClass = data[i];
-      } else {
-        currentClass = null;
-      }
+  // getCurrentClass = async () => {
+  //   /*
+  //   * const fakeClassData = {
+  //   *  start_time: '18:00',
+  //   *  end_time: '20:00',
+  //   *  subject: 'Webbutveckling 1'
+  //   * };
+  //   */
+  //   const { data } = await axios.get(
+  //     `https://api.ssis.nu/cal/?room=${this.props.auth.user.class}`
+  //   );
+  //   const now = new Date().getTime();
+  //   let currentClass;
+  //   for (let i = 0; i < data.length; i++) {
+  //     const nowDate = new Date();
+  //     var date =
+  //       nowDate.getFullYear() +
+  //       '-0' +
+  //       (nowDate.getMonth() + 1) +
+  //       '-0' +
+  //       nowDate.getDate();
+  //     let start = Date.parse(`${date} ${data[i].start_time}`);
+  //     let end = Date.parse(`${date} ${data[i].end_time}`);
+  //     if (start > end) {
+  //       // check if start comes before end
+  //       var temp = start; // if so, assume it's across midnight
+  //       start = end; // and swap the dates
+  //       end = temp;
+  //     }
+  //     if (now < end && now > start) {
+  //       currentClass = data[i];
+  //       break;
+  //     } else {
+  //       // else if (now + 30 * 60 > start) {
+  //       //   currentClas = data[i];
+  //       // }
+  //       currentClass = null;
+  //     }
+  //   }
+  //   this.setState({ currentClass });
+  // };
+
+  getLunchOfTheDay = () => {
+    if (this.props.lunchMenu) {
+      const { lunchMenu } = this.props;
+      const weekDays = Object.keys(lunchMenu);
+      const currentDay = new Date().getDay() - 1;
+      const lunchOfTheDay = lunchMenu[weekDays[currentDay]];
+      this.setState({ lunchOfTheDay });
     }
-    this.setState({ currentClass });
   };
 
   render() {
@@ -80,7 +98,19 @@ class HomeScreen extends Component {
         <Card style={commonStyles.card}>
           <Heading>Dagens Lunch</Heading>
           <View>
-            <Text>Kött: Köttfärslimpa med potatispuré och lingon</Text>
+            {this.state.lunchOfTheDay &&
+              this.state.lunchOfTheDay.map(dish => {
+                dish = dish.split(':');
+                const prefix = dish[0];
+                dish.splice(dish[0], 1);
+                dish = dish.join('');
+                return (
+                  <RNText style={homeStyles.dishText}>
+                    <RNText style={homeStyles.boldText}>{prefix}:</RNText>
+                    {dish}
+                  </RNText>
+                );
+              })}
           </View>
         </Card>
         <Card style={commonStyles.card}>
@@ -89,21 +119,31 @@ class HomeScreen extends Component {
             <Text>Nytt betyg rapporterat i Svenska 3</Text>
           </View>
         </Card>
-        {this.state.currentClass !== null && (
-          <Card style={commonStyles.card}>
-            <Heading>Lektion just nu</Heading>
-            <View>
-              <Text>{this.state.currentClass.subject}</Text>
-            </View>
-          </Card>
-        )}
+        {/* <Text>{new Date().getTimezoneOffset()}</Text> */}
+        {this.props.schedule.currentClass !== null &&
+          !this.props.schedule.fetching && (
+            <Card style={commonStyles.card}>
+              <Heading>Lektion just nu</Heading>
+              <View>
+                <Text>
+                  {this.props.schedule.currentClass.subject} i
+                  {this.props.schedule.currentClass.participants.split(',')[2]}
+                </Text>
+              </View>
+            </Card>
+          )}
       </View>
     );
   }
 }
 
 function mapStateToProps(state) {
-  return { auth: state.auth, form: state.form };
+  return {
+    auth: state.auth,
+    form: state.form,
+    schedule: state.schedule,
+    lunchMenu: state.lunch
+  };
 }
 
-export default connect(mapStateToProps, {})(HomeScreen);
+export default connect(mapStateToProps, { getCurrentClass })(HomeScreen);

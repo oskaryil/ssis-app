@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 
 import LoginForm from './components/LoginForm';
 import styles from './login.styles';
-import { login } from '../../redux/auth/actions';
+import { login, signup } from '../../redux/auth/actions';
 
 class LoginScreen extends Component {
   static navigationOptions = {
@@ -16,6 +16,7 @@ class LoginScreen extends Component {
       await this.props.login(values);
       this.props.navigation.navigate('FillOutInformation');
     } catch (err) {
+      console.log(err);
       Alert.alert('Woopsie!', 'Användarnamn eller lösenord är inkorrekta.');
     }
   }
@@ -37,4 +38,4 @@ function mapStateToProps(state) {
   return { auth: state.auth, form: state.form };
 }
 
-export default connect(mapStateToProps, { login })(LoginScreen);
+export default connect(mapStateToProps, { login, signup })(LoginScreen);
