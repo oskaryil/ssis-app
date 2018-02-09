@@ -26,9 +26,6 @@ class HomeScreen extends Component {
   }
 
   componentDidMount() {
-    if (this.props.schedule.error.length > 4) {
-      alert(this.props.schedule.error);
-    }
     setInterval(this.props.getCurrentClass, 100000);
   }
 
