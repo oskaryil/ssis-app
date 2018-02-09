@@ -1,6 +1,6 @@
 // Formik x React Native example
 import React from 'react';
-import { Button, TextInput, View } from 'react-native';
+import { Button, View } from 'react-native';
 import { reduxForm, Field } from 'redux-form';
 
 import Input from '../../../components/Input';
