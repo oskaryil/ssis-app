@@ -17,3 +17,6 @@ There are a couple of goals with this project:
 
 The trello board the planning:
 https://trello.com/b/CUs57wUw
+
+Just a link for myself (Oskar) to check out:
+https://stackoverflow.com/questions/988114/how-to-apply-agile-to-personal-projects
