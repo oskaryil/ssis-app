@@ -15,7 +15,7 @@ There are a couple of goals with this project:
 
 ## Project planning
 
-The trello board the planning:
+The trello board with the planning:
 https://trello.com/b/CUs57wUw
 
 Just a link for myself (Oskar) to check out:
