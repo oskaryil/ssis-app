@@ -20,3 +20,9 @@ https://trello.com/b/CUs57wUw
 
 Just a link for myself (Oskar) to check out:
 https://stackoverflow.com/questions/988114/how-to-apply-agile-to-personal-projects
+
+The methodology that will be used for this project is an agile-like one which is a mix of kanban/scrum.
+
+### Backlog
+
+The project planning consists of a backlog of all the features that are planned. Not all of the will become a reality because of time constraints but there will be a prioritization.
