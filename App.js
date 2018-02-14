@@ -2,13 +2,19 @@ import React from 'react';
 import { StyleSheet, Text, View, StatusBar } from 'react-native';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/es/integration/react';
-import { Font } from 'expo';
+import { Font, Segment } from 'expo';
 
 import { SignedInNav, SignedOutNav } from './src/router';
 import configureStore from './src/store';
 import AppRouter from './src/AppRouter';
+import config from './src/config';
 
 const { store, persistor } = configureStore();
+
+Segment.initialize({
+  androidWriteKey: config.segment.androidWriteKey,
+  iosWriteKey: config.segment.iosWrtiteKey
+});
 
 export default class App extends React.Component {
   constructor() {
