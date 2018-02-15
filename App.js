@@ -11,10 +11,10 @@ import config from './src/config';
 
 const { store, persistor } = configureStore();
 
-Segment.initialize({
-  androidWriteKey: config.segment.androidWriteKey,
-  iosWriteKey: config.segment.iosWrtiteKey
-});
+// Segment.initialize({
+//   androidWriteKey: config.segment.androidWriteKey,
+//   iosWriteKey: config.segment.iosWrtiteKey
+// });
 
 export default class App extends React.Component {
   constructor() {
