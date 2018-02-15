@@ -46,3 +46,20 @@ Förstår inte varför det står dagens lunch och sen canvas avisering just unde
 ### användarupplevelsen
 
 Lätt att använda och simpel.
+
+## Test med Tobias
+
+Otydlig användarnamn placeholder, Skulle vara bra med exempel t.e. "15..."
+
+Ser bra ut annars.
+
+Konstigt med veg bold.
+
+Skulle vara bra om man kunde se vad nästa lektion är.
+
+Mer spacing mellan måndag och Headern på lunchsidan
+
+Tips:
+Om man trycker på ett card så ska något ske.
+
+Om man trycker på lektion så kommer en dropdown med mer info eller hela dagen.
