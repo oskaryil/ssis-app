@@ -28,15 +28,35 @@ import { connect } from 'react-redux';
 import { View, Text } from 'react-native';
 
 import commonStyles from '../../styles/common.styles';
+import { getFullSchedule } from '../../redux/schedule/actions';
 
 class ScheduleScreen extends Component {
+  constructor(props) {
+    super(props);
+  }
+
+  async componentWillMount() {
+    await this.props.getFullSchedule();
+  }
+
+  // TODO: Design individual schedule/class component and map through schedule and render each class as that component here
   render() {
     return (
       <View style={commonStyles.container}>
         <Text>Schema</Text>
+        {this.props.schedule.schedule && (
+          <Text>{JSON.stringify(this.props.schedule.schedule)}</Text>
+        )}
       </View>
     );
   }
 }
 
-export default ScheduleScreen;
+function mapStateToProps(state) {
+  return {
+    schedule: state.schedule,
+    auth: state.auth
+  };
+}
+
+export default connect(mapStateToProps, { getFullSchedule })(ScheduleScreen);
