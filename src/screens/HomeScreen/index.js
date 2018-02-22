@@ -102,7 +102,7 @@ class HomeScreen extends Component {
                 dish.splice(dish[0], 1);
                 dish = dish.join('');
                 return (
-                  <RNText style={homeStyles.dishText}>
+                  <RNText key={dish} style={homeStyles.dishText}>
                     <RNText style={homeStyles.boldText}>{prefix}:</RNText>
                     {dish}
                   </RNText>

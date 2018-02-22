@@ -5,11 +5,11 @@ export default {
     marginBottom: '2%'
   },
   boldText: {
-    fontFamily: 'Rubik-Bold',
+    // fontFamily: 'Rubik-Bold',
     fontWeight: 'bold'
   },
   dishText: {
-    fontFamily: 'Rubik-Regular',
+    // fontFamily: 'Rubik-Regular',
     padding: 4
   }
 };
