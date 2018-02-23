@@ -22,3 +22,20 @@
  * Last modified by oskar on 2018-02-22T19:30:30+01:00
  *
  */
+
+export default {
+  container: {
+    flex: 1
+  },
+  header: {
+    fontSize: 30,
+    fontWeight: 'bold',
+    marginBottom: '2%',
+    paddingHorizontal: '5%'
+  },
+  contentContainer: {
+    paddingTop: '20%',
+    paddingBottom: '10%',
+    paddingHorizontal: 0
+  }
+};

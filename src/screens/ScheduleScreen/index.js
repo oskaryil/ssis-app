@@ -25,10 +25,12 @@
 
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { View, Text } from 'react-native';
+import { ScrollView, Text } from 'react-native';
 
+import scheduleStyles from './schedule.styles';
 import commonStyles from '../../styles/common.styles';
 import { getFullSchedule } from '../../redux/schedule/actions';
+import ClassCard from './components/ClassCard';
 
 class ScheduleScreen extends Component {
   constructor(props) {
@@ -39,15 +41,31 @@ class ScheduleScreen extends Component {
     await this.props.getFullSchedule();
   }
 
+  renderClasses() {
+    const schedule = this.props.schedule.schedule;
+    return schedule.map(singleClass => (
+      <ClassCard
+        key={singleClass.subject}
+        classTitle={singleClass.subject}
+        classTime={`${singleClass.start_time}-${singleClass.end_time}`}
+        classDescription={`${singleClass.participants
+          .split(',')
+          .slice(2, 3)
+          .join('')}`}
+      />
+    ));
+  }
+
   // TODO: Design individual schedule/class component and map through schedule and render each class as that component here
   render() {
     return (
-      <View style={commonStyles.container}>
-        <Text>Schema</Text>
-        {this.props.schedule.schedule && (
-          <Text>{JSON.stringify(this.props.schedule.schedule)}</Text>
-        )}
-      </View>
+      <ScrollView
+        contentContainerStyle={scheduleStyles.contentContainer}
+        style={scheduleStyles.container}
+      >
+        <Text style={scheduleStyles.header}>Schema</Text>
+        {this.props.schedule.schedule && this.renderClasses()}
+      </ScrollView>
     );
   }
 }
