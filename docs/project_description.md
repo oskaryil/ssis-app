@@ -8,7 +8,7 @@
 ## Information Architecture
 The current information architecture is very basic with only a few screens in the app.
 It currently looks something like this:
-[INSERT IMAGE HERE]
+![IA sketch](https://i.imgur.com/t8lb2bC.jpg)
 
 ## Method & Tools
 For this project there are multiple methods employed.
