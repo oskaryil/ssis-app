@@ -32,7 +32,6 @@ Current methods being used here are paper sketches, digital designs in Sketch or
 The preferred planning & project management method of chocie is a mix of scrum/kanban, more on the planning can be found in `README.md`.
 
 ## Code structure
-## Code structure
 
 ```bash
 ├── App.js
