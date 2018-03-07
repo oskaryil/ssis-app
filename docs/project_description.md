@@ -31,3 +31,21 @@ Current methods being used here are paper sketches, digital designs in Sketch or
 ### Planning
 The preferred planning & project management method of chocie is a mix of scrum/kanban, more on the planning can be found in `README.md`.
 
+## Code structure
+## Code structure
+
+```bash
+├── App.js
+├── App.test.js
+├── CRNA.md
+├── README.md
+├── app.json
+├── docs
+├── node_modules
+├── package.json
+├── src
+└── yarn.lock
+```
+
+The code strucutre is as shown in the tree above. The code is mainly located in the `src/` directory and the documentation in `docs/`. All the third party modules are due to the nature of node located in `node_modules/`. `package.json` consists of a list of the dependencies but also the available commands/scripts that can be executed while in the project. `App.js` is the `main` file in this case. It is what is executed when the app is ran.  
+
