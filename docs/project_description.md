@@ -33,6 +33,8 @@ The preferred planning & project management method of chocie is a mix of scrum/k
 
 ## Code structure
 
+### ssis-app
+
 ```bash
 ├── App.js
 ├── App.test.js
@@ -48,3 +50,74 @@ The preferred planning & project management method of chocie is a mix of scrum/k
 
 The code strucutre is as shown in the tree above. The code is mainly located in the `src/` directory and the documentation in `docs/`. All the third party modules are due to the nature of node located in `node_modules/`. `package.json` consists of a list of the dependencies but also the available commands/scripts that can be executed while in the project. `App.js` is the `main` file in this case. It is what is executed when the app is ran.  
 
+### ssis-app-api
+
+```bash
+/ (project root dir)
+├── .babelrc
+├── .env
+├── .eslintrc.json
+├── .git
+├── .github
+├── .gitignore
+├── Dockerfile
+├── LICENSE
+├── README.md
+├── __mocks__
+├── __tests__
+├── apidoc.json
+├── cart-mock.json
+├── dist
+├── doc
+├── docker-compose.yml
+├── fabfile.py
+├── fabfile.pyc
+├── knexfile.js
+├── node_modules
+├── package.json
+├── processes.json
+├── scripts
+├── sql
+├── src
+├── webpack.config.js
+├── yarn-error.log
+└── yarn.lock
+```
+
+The code structure for the api looks as above and the main parts are `src/`, `dist/`, `knexfile.js`, `webpack.config.js`, `.eslintrc.json` and `.env`. All of the code that runs the majority of the api and handles all the logic is located in `src/`. The `knexfile.js` handles the different postgresql environments and is required for the other parts that handle the postgresql connection. The `webpack.config.json` file consists of the webpack config that bundles the code into a `index.dist.js` on build. This file is then located in the `dist/` directory and is what runs in production. The `.env` file contains all of the necessary environment variables like database host urls, secrets etc. 
+
+```
+src/
+├── config
+├── controllers
+├── db
+├── graphql
+├── helpers
+├── index.js
+├── locales
+├── models
+├── routes
+├── seeds
+├── services
+└── utils
+```
+
+The `src/` directory contains the majority of the logic for the api application. The `config` directory handles all of the configuration that the application relies on, these are things such as retrieving all of the environment variables and making them available to the application in a good and easy to use way. It also consists of the db connectors and the middleware configuration for express. 
+
+The rest of the directories are pretty self explanatory but here's a quick rundown:
+
+`controllers/` : Controller logic
+
+`db/` : Knex db migrations and setup
+
+`helpers/` : Contains `auth.helper.js` which handles all the login/signup logic
+
+`index.js` : App entry point
+
+`models/` : Contains database models like User.
+
+`routes/` : Contains all of the routes for the application
+
+`services/` : Application services like `eatery.js`
+
+`utils/` : Small DRY util-functions that can be utilised wherever needed in the application.
