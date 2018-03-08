@@ -26,3 +26,6 @@ The methodology that will be used for this project is an agile-like one which is
 ### Backlog
 
 The project planning consists of a backlog of all the features that are planned. Not all of the will become a reality because of time constraints but there will be a prioritization.
+
+## API for this app
+[ssis-app-api](https://github.com/oskaryil/ssis-app-api)
