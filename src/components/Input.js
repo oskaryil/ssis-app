@@ -19,14 +19,21 @@ const styles = StyleSheet.create({
   textInput: {
     height: 50,
     width: 325,
-    padding: 6,
+    padding: 8,
     fontSize: 18,
     backgroundColor: 'rgba(255, 255, 255, 1)',
-    borderRadius: 10
+    borderRadius: 6,
+    shadowOffset: {
+      width: -3,
+      height: 5
+    },
+    shadowColor: "#d3d3d3",
+    shadowOpacity: 0.4,
+    shadowRadius: 8
   },
   inputContainer: {
     margin: 10,
-    alignSelf: 'center'
+    alignSelf: 'center',
   },
   label: {
     fontSize: 16,
