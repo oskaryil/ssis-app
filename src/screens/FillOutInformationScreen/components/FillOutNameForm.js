@@ -14,7 +14,7 @@ const FillOutNameForm = ({
 }) => (
   <View>
     <Text style={styles.title}>Snart där!</Text>
-    <Field component={Input} name="name" placeholder="John Appleseed" label="Namn" inputStyle={{ width: '90%' }} />
+    <Field component={Input} name="name" placeholder="John Appleseed" label="Namn*" inputStyle={{ width: '90%' }} />
     <TouchableOpacity style={styles.submitBtn} onPress={handleSubmit(onSubmit)}>
       <Text style={styles.submitBtnText}>Nästa</Text>
     </TouchableOpacity>
