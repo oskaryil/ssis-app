@@ -37,5 +37,9 @@ export default {
     paddingTop: '20%',
     paddingBottom: '10%',
     paddingHorizontal: 0
+  },
+  noClassesText: {
+    alignSelf: 'center',
+    marginTop: '2%'
   }
 };

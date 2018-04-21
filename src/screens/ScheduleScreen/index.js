@@ -65,6 +65,7 @@ class ScheduleScreen extends Component {
       >
         <Text style={scheduleStyles.header}>Schema</Text>
         {this.props.schedule.schedule && this.renderClasses()}
+        {this.props.schedule.schedule.length === 0 && <Text style={scheduleStyles.noClassesText}>Inga lektioner idag!</Text> }
       </ScrollView>
     );
   }
