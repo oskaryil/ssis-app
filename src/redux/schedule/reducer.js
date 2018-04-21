@@ -1,13 +1,17 @@
 import {
   FETCH_CURRENT_CLASS,
   FETCH_CURRENT_CLASS_SUCCESS,
-  FETCH_CURRENT_CLASS_FAIL
+  FETCH_CURRENT_CLASS_FAIL,
+  FETCH_SCHEDULE,
+  FETCH_SCHEDULE_SUCCESS,
+  FETCH_SCHEDULE_FAIL
 } from './types';
 
 const INITIAL_STATE = {
   currentClass: null,
   fetching: false,
-  error: ''
+  error: '',
+  schedule: null
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -24,6 +28,21 @@ export default (state = INITIAL_STATE, action) => {
       return { ...state, currentClass, fetching: false, error: '' };
     case FETCH_CURRENT_CLASS_FAIL:
       return { ...state, error: action.error, fetching: false };
+    case FETCH_SCHEDULE:
+      return { ...state, fetching: true };
+    case FETCH_SCHEDULE_SUCCESS:
+      return {
+        ...state,
+        schedule: action.schedule,
+        error: '',
+        fetching: false
+      };
+    case FETCH_SCHEDULE_FAIL:
+      return {
+        ...state,
+        error: action.error,
+        fetching: false
+      };
     default:
       return state;
   }

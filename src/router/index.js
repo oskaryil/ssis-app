@@ -7,13 +7,13 @@ import FillOutInformationScreen from '../screens/FillOutInformationScreen';
 import HomeScreen from '../screens/HomeScreen';
 import LunchMenuScreen from '../screens/LunchMenuScreen';
 import SettingsScreen from '../screens/SettingsScreen';
+import ScheduleScreen from '../screens/ScheduleScreen';
 
 // export default TabNavigator(
 //   {
 //     Home: { screen: HomeScreen }
 //   },
-//   {
-//     navigationOptions: ({ navigation }) => ({
+//   { //     navigationOptions: ({ navigation }) => ({
 //       tabBarIcon: ({ focused, tintColor }) => {
 //         const { routeName } = navigation.state;
 //         let iconName;
@@ -48,6 +48,7 @@ const SignedInNav = TabNavigator(
   {
     Hem: { screen: HomeScreen },
     Lunch: { screen: LunchMenuScreen },
+    Schema: { screen: ScheduleScreen },
     Inställningar: { screen: SettingsScreen }
   },
   {
@@ -61,6 +62,8 @@ const SignedInNav = TabNavigator(
           iconName = `ios-options${focused ? '' : '-outline'}`;
         } else if (routeName === 'Lunch') {
           iconName = `ios-restaurant${focused ? '' : '-outline'}`;
+        } else if (routeName === 'Schema') {
+          iconName = `ios-calendar${focused ? '' : '-outline'}`;
         } else if (routeName === 'Inställningar') {
           iconName = `ios-settings${focused ? '' : '-outline'}`;
         }
@@ -70,6 +73,7 @@ const SignedInNav = TabNavigator(
         return <Ionicons name={iconName} size={25} color={tintColor} />;
       }
     }),
+    // TODO: Choose between Tomato and #fcbf0a (school color)
     tabBarOptions: {
       activeTintColor: 'tomato',
       inactiveTintColor: 'gray'
