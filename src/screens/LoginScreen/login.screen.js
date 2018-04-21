@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, TouchableOpacity, Alert } from 'react-native';
+import { View, Text, TouchableOpacity, Alert, Image } from 'react-native';
 import { connect } from 'react-redux';
 
 import LoginForm from './components/LoginForm';
@@ -24,11 +24,9 @@ class LoginScreen extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.mainHeader}>Logga in</Text>
+        <Image style={styles.logo} source={require('../../assets/images/ssis_logo.png')} />
+        <Text style={styles.mainHeader}>Logga in med ditt SSIS-konto</Text>
         <LoginForm login={this.login.bind(this)} />
-        <Text style={styles.registerButton}>
-          Du loggar in med ditt SSIS konto
-        </Text>
       </View>
     );
   }

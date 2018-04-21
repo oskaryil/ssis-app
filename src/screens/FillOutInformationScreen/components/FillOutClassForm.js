@@ -1,12 +1,13 @@
 import { reduxForm, Field } from 'redux-form';
-import { View, Button, Picker } from 'react-native';
+import { View, Button, Picker, Text, TouchableOpacity } from 'react-native';
 import React from 'react';
 
 import Input from '../../../components/Input';
+import styles from '../styles/form.styles';
 import ClassPicker from './ClassPicker';
 import classesData from './classes.json';
 
-const FillOutInformationForm = ({
+const FillOutClassForm = ({
   handleSubmit,
   submitting,
   invalid,
@@ -14,26 +15,26 @@ const FillOutInformationForm = ({
   onSubmit,
 }) => (
   <View>
-    <Field component={Input} name="name" placeholder="Namn" label="Namn" />
-    <Field component={Input} name="class" placeholder="Klass" label="Klass" />
+    <Text style={styles.title}>Sista steget nu!</Text>
+    <Text style={styles.pickClassText}>Välj din klass</Text>
     <Field name="class" component={ClassPicker}>
     {renderClasses()}
     </Field>
-    <Button onPress={handleSubmit(onSubmit)} title="Klar!" />
+    <TouchableOpacity style={styles.submitBtn} onPress={handleSubmit(onSubmit)}>
+      <Text style={styles.submitBtnText}>Klar!</Text>
+    </TouchableOpacity>
   </View>
 );
 
 const renderClasses = () => {
-  console.log(classesData);
   const pickerItems = [];
   for(let i = 0; i < classesData.classes.length; i++) {
-    console.log(classesData.classes[i]);
     pickerItems.push(<Picker.Item key={classesData.classes[i]} label={classesData.classes[i]} value={classesData.classes[i]} />);
   }
   return pickerItems;
 }
 
 
-export default reduxForm({ form: 'fillOutInformation' })(
-  FillOutInformationForm
+export default reduxForm({ form: 'fillOutClass' })(
+  FillOutClassForm
 );
