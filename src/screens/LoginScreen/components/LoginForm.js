@@ -4,6 +4,7 @@ import { Button, View } from 'react-native';
 import { reduxForm, Field } from 'redux-form';
 
 import Input from '../../../components/Input';
+import PrimaryButton from '../../../components/PrimaryButton';
 
 const LoginForm = ({ handleSubmit, login, invalid, submitting, error }) => (
   <View>
@@ -20,7 +21,7 @@ const LoginForm = ({ handleSubmit, login, invalid, submitting, error }) => (
       label="Lösenord"
       placeholder="Lösenord"
     />
-    <Button onPress={handleSubmit(login)} title="Logga in" />
+    <PrimaryButton onPress={handleSubmit(login)} title="Logga in" />
   </View>
 );
 
