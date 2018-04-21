@@ -1,10 +1,10 @@
 import { StyleSheet } from 'react-native';
 export default StyleSheet.create({
   mainHeader: {
-    fontSize: 40,
+    fontSize: 20,
+    alignSelf: 'center',
     fontWeight: 'bold',
-    paddingTop: '5%',
-    marginBottom: '10%',
+    marginVertical: '5%',
     color: '#222'
   },
   container: {
@@ -26,5 +26,11 @@ export default StyleSheet.create({
   },
   registerButton: {
     marginTop: '5%'
+  },
+  logo: {
+    marginTop: 50,
+    alignSelf: 'center',
+    height: 125,
+    width: 225
   }
 });
