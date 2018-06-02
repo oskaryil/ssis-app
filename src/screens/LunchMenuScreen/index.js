@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { View, Text, TouchableOpacity, Alert, ScrollView } from 'react-native';
+import { View, Text, TouchableOpacity, Alert } from 'react-native';
 import { connect } from 'react-redux';
-import { Card, Spinner } from '@shoutem/ui';
+import { ScrollView, Card, Spinner, NavigationBar, Screen } from '@shoutem/ui';
 
 import commonStyles from '../../styles/common.styles';
 import lunchMenuStyles from './lunchMenu.styles';
@@ -67,19 +67,19 @@ class LunchMenuScreen extends Component {
 
   render() {
     return (
+      <Screen styleName="paper">
+      <NavigationBar title={`Lunch meny v. ${new Date().getWeek()}`} />
       <ScrollView
-        style={lunchMenuStyles.container}
         contentContainerStyle={lunchMenuStyles.contentContainer}
-      >
-        <Text style={lunchMenuStyles.header}>
-          Eatery Lunch meny v. {new Date().getWeek()}
-        </Text>
-        <View style={lunchMenuStyles.lunchMenuBox}>
-          {/* <Text style={lunchMenuStyles.dayText}>Måndag</Text>
-          <Text style={lunchMenuStyles.dayText}>Tisdag</Text> */}
-          {this.props.lunchMenu ? this.renderLunch() : <Spinner />}
-        </View>
+        styleName="paper v-scroll">
+          <View style={lunchMenuStyles.lunchMenuBox}>
+            {/* <Text style={lunchMenuStyles.dayText}>Måndag</Text>
+            <Text style={lunchMenuStyles.dayText}>Tisdag</Text> */}
+            {this.props.lunchMenu ? this.renderLunch() : <Spinner />}
+          </View>
       </ScrollView>
+
+      </Screen>
     );
   }
 }
