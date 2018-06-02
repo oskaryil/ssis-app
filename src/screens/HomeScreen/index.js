@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { View, TouchableOpacity, Alert, Text as RNText } from 'react-native';
 import { connect } from 'react-redux';
-import { Card, Heading, Text } from '@shoutem/ui';
+import { Card, Heading, Text, NavigationBar, Screen, Button } from '@shoutem/ui';
 import axios from 'axios';
+import { Ionicons } from '@expo/vector-icons';
 
 import commonStyles from '../../styles/common.styles';
 import homeStyles from './home.styles';
@@ -88,10 +89,12 @@ class HomeScreen extends Component {
 
   render() {
     return (
-      <View style={[commonStyles.container, { backgroundColor: '#eeeeee' }]}>
-        <RNText style={homeStyles.header}>
-          Välkommen {this.props.auth.user.name}
-        </RNText>
+      <Screen styleName="paper">
+        <NavigationBar styleName="inline no-border" title={`Välkommen ${this.props.auth.user.name}`} rightComponent={
+          <Button onPress={() => this.props.navigation.navigate('Inställningar')}>
+            <Ionicons name="ios-settings" size={30}  />
+          </Button>
+        }/>
         <Card style={commonStyles.card}>
           <Heading>Dagens Lunch</Heading>
           <View>
@@ -129,7 +132,7 @@ class HomeScreen extends Component {
               </View>
             </Card>
           )}
-      </View>
+      </Screen>
     );
   }
 }
