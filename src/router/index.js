@@ -9,8 +9,7 @@ import LunchMenuScreen from '../screens/LunchMenuScreen';
 import SettingsScreen from '../screens/SettingsScreen';
 import ScheduleScreen from '../screens/ScheduleScreen';
 
-// export default TabNavigator(
-//   {
+// export default TabNavigator( //   {
 //     Home: { screen: HomeScreen }
 //   },
 //   { //     navigationOptions: ({ navigation }) => ({
@@ -44,12 +43,20 @@ const SignedOutNav = StackNavigator({
   FillOutInformation: { screen: FillOutInformationScreen }
 });
 
+const HomeStack = StackNavigator({
+  Hem: {
+    screen: HomeScreen
+  },
+  Inställningar: {
+    screen: SettingsScreen
+  }
+});
+
 const SignedInNav = TabNavigator(
   {
-    Hem: { screen: HomeScreen },
+    Hem: { screen: HomeStack },
     Lunch: { screen: LunchMenuScreen },
-    Schema: { screen: ScheduleScreen },
-    Inställningar: { screen: SettingsScreen }
+    Schema: { screen: ScheduleScreen }
   },
   {
     navigationOptions: ({ navigation }) => ({
@@ -64,9 +71,7 @@ const SignedInNav = TabNavigator(
           iconName = `ios-restaurant${focused ? '' : '-outline'}`;
         } else if (routeName === 'Schema') {
           iconName = `ios-calendar${focused ? '' : '-outline'}`;
-        } else if (routeName === 'Inställningar') {
-          iconName = `ios-settings${focused ? '' : '-outline'}`;
-        }
+        } 
 
         // You can return any component that you like here! We usually use an
         // icon component from react-native-vector-icons
