@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import { View, TouchableOpacity, Alert, Text as RNText } from 'react-native';
 import { connect } from 'react-redux';
-import { Card, Heading, Text } from '@shoutem/ui';
+import { Card, Heading, Text, Button } from '@shoutem/ui';
 import axios from 'axios';
+import qs from 'qs';
+import { Ionicons } from '@expo/vector-icons';
 
 import commonStyles from '../../styles/common.styles';
 import homeStyles from './home.styles';
@@ -16,13 +18,17 @@ class HomeScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      lunchOfTheDay: null
+      lunchOfTheDay: null,
+      selectedStop: 'Kista centrum',
+      buses: [],
+      metros: []
     };
   }
 
   componentWillMount() {
     this.props.getCurrentClass();
     this.getLunchOfTheDay();
+    this.fetchRealtidForStop();
   }
 
   componentDidMount() {
@@ -34,47 +40,6 @@ class HomeScreen extends Component {
       Fetches data from api.ssis.nul/cal with the class of the user as an arg
     This is then displayed in a card in the render method
    */
-  // getCurrentClass = async () => {
-  //   /*
-  //   * const fakeClassData = {
-  //   *  start_time: '18:00',
-  //   *  end_time: '20:00',
-  //   *  subject: 'Webbutveckling 1'
-  //   * };
-  //   */
-  //   const { data } = await axios.get(
-  //     `https://api.ssis.nu/cal/?room=${this.props.auth.user.class}`
-  //   );
-  //   const now = new Date().getTime();
-  //   let currentClass;
-  //   for (let i = 0; i < data.length; i++) {
-  //     const nowDate = new Date();
-  //     var date =
-  //       nowDate.getFullYear() +
-  //       '-0' +
-  //       (nowDate.getMonth() + 1) +
-  //       '-0' +
-  //       nowDate.getDate();
-  //     let start = Date.parse(`${date} ${data[i].start_time}`);
-  //     let end = Date.parse(`${date} ${data[i].end_time}`);
-  //     if (start > end) {
-  //       // check if start comes before end
-  //       var temp = start; // if so, assume it's across midnight
-  //       start = end; // and swap the dates
-  //       end = temp;
-  //     }
-  //     if (now < end && now > start) {
-  //       currentClass = data[i];
-  //       break;
-  //     } else {
-  //       // else if (now + 30 * 60 > start) {
-  //       //   currentClas = data[i];
-  //       // }
-  //       currentClass = null;
-  //     }
-  //   }
-  //   this.setState({ currentClass });
-  // };
 
   getLunchOfTheDay = () => {
     if (this.props.lunchMenu) {
@@ -83,6 +48,22 @@ class HomeScreen extends Component {
       const currentDay = new Date().getDay() - 1;
       const lunchOfTheDay = lunchMenu[weekDays[currentDay]];
       this.setState({ lunchOfTheDay });
+    }
+  };
+
+  fetchRealtidForStop = () => {
+    if (this.state.selectedStop) {
+      axios({
+        method: 'get',
+        url: `/realtid?site=${this.state.selectedStop}&timeWindow=${15}`,
+        headers: {
+          Authorization: this.props.auth.user.token,
+        }
+      }).then(({ data }) => {
+        this.setState({ buses: data.ResponseData.Buses, metros: data.ResponseData.Metros });
+      }).catch(err => {
+        console.log(err.message);
+      })
     }
   };
 
@@ -129,6 +110,15 @@ class HomeScreen extends Component {
               </View>
             </Card>
           )}
+        <Card style={commonStyles.card}>
+          <Text>Avgångar - {this.state.selectedStop}</Text>
+          <Button styleName="clear" onPress={this.fetchRealtidForStop} align="right">
+            <Ionicons size={32} name="ios-refresh" />
+          </Button>
+          <View>
+            {this.state.metros.map(metro => <Text key={metro.ExpectedDateTime}>{metro.Destination} {metro.DisplayTime}</Text>)}
+          </View>
+        </Card>
       </View>
     );
   }
