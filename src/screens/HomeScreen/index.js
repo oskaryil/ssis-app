@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import { View, TouchableOpacity, Alert, Text as RNText } from 'react-native';
 import { connect } from 'react-redux';
-import qs from 'qs';
-import { Card, Heading, Text, NavigationBar, Screen, Button } from '@shoutem/ui';
+import qs from 'qs'; import { Card, Heading, Text, NavigationBar, Screen, Button } from '@shoutem/ui';
 import axios from 'axios';
 import { Ionicons } from '@expo/vector-icons';
 
@@ -121,7 +120,6 @@ class HomeScreen extends Component {
             {this.state.metros.map(metro => <Text key={metro.ExpectedDateTime}>{metro.Destination} {metro.DisplayTime}</Text>)}
           </View>
         </Card>
-      </View>
       </Screen>
     );
   }
