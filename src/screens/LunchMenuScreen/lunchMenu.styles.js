@@ -1,11 +1,11 @@
 import { StyleSheet } from 'react-native';
 
-export default StyleSheet.create({
+export default {
   container: {
     flex: 1
   },
   contentContainer: {
-    paddingTop: '20%',
+    paddingTop: '4%',
     paddingBottom: '10%',
     paddingHorizontal: '5%'
   },
@@ -25,5 +25,5 @@ export default StyleSheet.create({
   },
   card: {
     paddingBottom: '5%'
-  }
-});
+  },
+};

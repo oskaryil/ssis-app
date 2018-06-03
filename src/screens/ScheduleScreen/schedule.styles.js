@@ -34,7 +34,7 @@ export default {
     paddingHorizontal: '5%'
   },
   contentContainer: {
-    paddingTop: '20%',
+    paddingTop: '8%',
     paddingBottom: '10%',
     paddingHorizontal: 0
   },

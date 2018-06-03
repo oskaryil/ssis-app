@@ -25,7 +25,8 @@
 
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { ScrollView, Text } from 'react-native';
+import { Text } from 'react-native';
+import { NavigationBar, Screen, ScrollView } from '@shoutem/ui';
 
 import scheduleStyles from './schedule.styles';
 import commonStyles from '../../styles/common.styles';
@@ -59,14 +60,16 @@ class ScheduleScreen extends Component {
   // TODO: Design individual schedule/class component and map through schedule and render each class as that component here
   render() {
     return (
-      <ScrollView
-        contentContainerStyle={scheduleStyles.contentContainer}
-        style={scheduleStyles.container}
-      >
-        <Text style={scheduleStyles.header}>Schema</Text>
-        {this.props.schedule.schedule && this.renderClasses()}
-        {this.props.schedule.schedule.length === 0 && <Text style={scheduleStyles.noClassesText}>Inga lektioner idag!</Text> }
-      </ScrollView>
+      <Screen styleName="paper">
+        <NavigationBar title="Schema" styleName="inline" />
+        <ScrollView
+          contentContainerStyle={scheduleStyles.contentContainer}
+          style={scheduleStyles.container}
+        >
+          {this.props.schedule.schedule && this.renderClasses()}
+          {this.props.schedule.schedule.length === 0 && <Text style={scheduleStyles.noClassesText}>Inga lektioner idag!</Text> }
+        </ScrollView>
+      </Screen>
     );
   }
 }
