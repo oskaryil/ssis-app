@@ -26,6 +26,7 @@ export default {
       height: 5,
       width: 5
     },
+    elevation: 1,
     borderRadius: 8
   }
 };
