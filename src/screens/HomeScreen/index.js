@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { View, TouchableOpacity, Alert, Text as RNText } from 'react-native';
+import { View, TouchableOpacity, Alert, Text as RNText, TouchableWithoutFeedback } from 'react-native';
 import { connect } from 'react-redux';
-import qs from 'qs'; import { Card, Heading, Text, NavigationBar, Screen, Button } from '@shoutem/ui';
+import qs from 'qs';
+import { Card, Heading, Text, NavigationBar, Screen, Button, Row, Subtitle, Divider } from '@shoutem/ui';
 import axios from 'axios';
 import { Ionicons } from '@expo/vector-icons';
 
@@ -74,24 +75,26 @@ class HomeScreen extends Component {
             <Ionicons name="ios-settings" size={30}  />
           </Button>
         }/>
-        <Card style={commonStyles.card}>
-          <Heading>Dagens Lunch</Heading>
-          <View>
-            {this.state.lunchOfTheDay &&
-              this.state.lunchOfTheDay.map(dish => {
-                dish = dish.split(':');
-                const prefix = dish[0];
-                dish.splice(dish[0], 1);
-                dish = dish.join('');
-                return (
-                  <RNText key={dish} style={homeStyles.dishText}>
-                    <RNText style={homeStyles.boldText}>{prefix}:</RNText>
-                    {dish}
-                  </RNText>
-                );
-              })}
-          </View>
-        </Card>
+        <TouchableWithoutFeedback onPress={() => this.props.navigation.navigate('Lunch')}>
+          <Card style={commonStyles.card}>
+            <Heading>Dagens Lunch</Heading>
+            <View>
+              {this.state.lunchOfTheDay &&
+                this.state.lunchOfTheDay.map(dish => {
+                  dish = dish.split(':');
+                  const prefix = dish[0];
+                  dish.splice(dish[0], 1);
+                  dish = dish.join('');
+                  return (
+                    <RNText key={dish} style={homeStyles.dishText}>
+                      <RNText style={homeStyles.boldText}>{prefix}:</RNText>
+                      {dish}
+                    </RNText>
+                  );
+                })}
+            </View>
+          </Card>
+        </TouchableWithoutFeedback>
         <Card style={commonStyles.card}>
           <Heading>Canvas avisering</Heading>
           <View>
@@ -112,10 +115,12 @@ class HomeScreen extends Component {
             </Card>
           )}
         <Card style={commonStyles.card}>
-          <Text>Avgångar - {this.state.selectedStop}</Text>
-          <Button styleName="clear" onPress={this.fetchRealtidForStop} align="right">
-            <Ionicons size={32} name="ios-refresh" />
-          </Button>
+          <Divider>
+            <Subtitle styleName="bold">Avgångar - {this.state.selectedStop}</Subtitle>
+            <Button styleName="clear" onPress={this.fetchRealtidForStop} align="right">
+              <Ionicons size={32} name="ios-refresh" />
+            </Button>
+          </Divider>
           <View>
             {this.state.metros.map(metro => <Text key={metro.ExpectedDateTime}>{metro.Destination} {metro.DisplayTime}</Text>)}
           </View>
