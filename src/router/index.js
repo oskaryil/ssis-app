@@ -71,7 +71,7 @@ const SignedInNav = TabNavigator(
           iconName = `ios-restaurant${focused ? '' : '-outline'}`;
         } else if (routeName === 'Schema') {
           iconName = `ios-calendar${focused ? '' : '-outline'}`;
-        } 
+        }
 
         // You can return any component that you like here! We usually use an
         // icon component from react-native-vector-icons
@@ -80,7 +80,7 @@ const SignedInNav = TabNavigator(
     }),
     // TODO: Choose between Tomato and #fcbf0a (school color)
     tabBarOptions: {
-      activeTintColor: 'tomato',
+      activeTintColor: '#007AFF',
       inactiveTintColor: 'gray'
     },
     tabBarComponent: TabBarBottom,
