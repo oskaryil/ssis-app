@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { View, TouchableOpacity, Alert, Text as RNText, TouchableWithoutFeedback } from 'react-native';
 import { connect } from 'react-redux';
 import qs from 'qs';
-import { Card, Heading, Text, NavigationBar, Screen, Button, Row, Subtitle, Divider } from '@shoutem/ui';
+import { Card, Heading, Text, NavigationBar, Screen, Button, Row, Subtitle, Divider, ScrollView } from '@shoutem/ui';
 import axios from 'axios';
 import { Ionicons } from '@expo/vector-icons';
 
@@ -75,6 +75,8 @@ class HomeScreen extends Component {
             <Ionicons name="ios-settings" size={30}  />
           </Button>
         }/>
+        <ScrollView style={commonStyles.scrollContainer}
+          contentContainerStyle={commonStyles.scrollContentContainer}>
         <TouchableWithoutFeedback onPress={() => this.props.navigation.navigate('Lunch')}>
           <Card style={commonStyles.card}>
             <Heading>Dagens Lunch</Heading>
@@ -125,6 +127,7 @@ class HomeScreen extends Component {
             {this.state.metros.map(metro => <Text key={metro.ExpectedDateTime}>{metro.Destination} {metro.DisplayTime}</Text>)}
           </View>
         </Card>
+        </ScrollView>
       </Screen>
     );
   }
