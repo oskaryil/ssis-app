@@ -24,10 +24,16 @@ const HomeStack = StackNavigator({
   }
 });
 
+const TodoListStack = StackNavigator({
+  TodoList: {
+    screen: TodoListScreen
+  }
+});
+
 const SignedInNav = TabNavigator(
   {
     Hem: { screen: HomeStack },
-    Todo: { screen: TodoListScreen },
+    TodoList: { screen: TodoListStack },
     Lunch: { screen: LunchMenuScreen },
     Schema: { screen: ScheduleScreen }
   },
@@ -44,7 +50,7 @@ const SignedInNav = TabNavigator(
           iconName = `ios-restaurant${focused ? "" : "-outline"}`;
         } else if (routeName === "Schema") {
           iconName = `ios-calendar${focused ? "" : "-outline"}`;
-        } else if (routeName === "Todo") {
+        } else if (routeName === "TodoList") {
           iconName = `ios-list${focused ? "-box" : ""}`;
         }
 
