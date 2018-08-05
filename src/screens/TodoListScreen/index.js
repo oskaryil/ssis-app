@@ -13,9 +13,6 @@ import {
 import { Ionicons } from "@expo/vector-icons";
 import Input from "../../components/Input";
 import CreateTodoForm from "./components/CreateTodoForm";
-import GestureRecognizer, {
-  swipeDirections
-} from "react-native-swipe-gestures";
 
 import { createTodo } from "../../redux/todoList/actions";
 import modalStyles from "./styles/modal.styles";
@@ -28,8 +25,7 @@ class TodoListScreen extends Component {
   static navigationOptions = {
     tabBarLabel: "Att göra",
     header: null,
-    gesturesEnabled: false,
-    swipeEnabled: false
+    gesturesEnabled: false
   };
 
   constructor(props) {
@@ -42,25 +38,12 @@ class TodoListScreen extends Component {
 
   async componentWillMount() {}
 
-  onSwipeRight(gestureState) {
-    console.log(gestureState);
-  }
-
   renderTodos(todo) {
-    const config = {
-      velocityThreshold: 0.3,
-      directionalOffsetThreshold: 80
-    };
     if (this.props.todoList.todos.length > 0) {
       return (
-        <GestureRecognizer
-          config={config}
-          onSwipeRight={state => this.onSwipeRight(state)}
-        >
-          <View style={styles.todoItem} key={todo.dueDate}>
-            <Text style={styles.todoItemText}>{todo.title}</Text>
-          </View>
-        </GestureRecognizer>
+        <View style={styles.todoItem} key={todo.dueDate}>
+          <Text style={styles.todoItemText}>{todo.title}</Text>
+        </View>
       );
     }
   }
