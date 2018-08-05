@@ -66,7 +66,8 @@ const SignedInNav = TabNavigator(
     },
     tabBarComponent: TabBarBottom,
     tabBarPosition: "bottom",
-    animationEnabled: false
+    animationEnabled: true,
+    swipeEnabled: true
   }
 );
 
