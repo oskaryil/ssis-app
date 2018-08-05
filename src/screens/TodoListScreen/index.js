@@ -7,21 +7,29 @@ import {
   ScrollView,
   Button,
   View,
-  Heading
+  Heading,
+  ListView
 } from "@shoutem/ui";
 import { Ionicons } from "@expo/vector-icons";
 import Input from "../../components/Input";
 import CreateTodoForm from "./components/CreateTodoForm";
+import GestureRecognizer, {
+  swipeDirections
+} from "react-native-swipe-gestures";
 
+import { createTodo } from "../../redux/todoList/actions";
 import modalStyles from "./styles/modal.styles";
 import commonStyles from "../../styles/common.styles";
+import styles from "./styles/todoList.styles.js";
 // import { getFullSchedule } from '../../redux/schedule/actions';
 // import ClassCard from './components/ClassCard';
 
 class TodoListScreen extends Component {
   static navigationOptions = {
     tabBarLabel: "Att göra",
-    header: null
+    header: null,
+    gesturesEnabled: false,
+    swipeEnabled: false
   };
 
   constructor(props) {
@@ -33,6 +41,29 @@ class TodoListScreen extends Component {
   }
 
   async componentWillMount() {}
+
+  onSwipeRight(gestureState) {
+    console.log(gestureState);
+  }
+
+  renderTodos(todo) {
+    const config = {
+      velocityThreshold: 0.3,
+      directionalOffsetThreshold: 80
+    };
+    if (this.props.todoList.todos.length > 0) {
+      return (
+        <GestureRecognizer
+          config={config}
+          onSwipeRight={state => this.onSwipeRight(state)}
+        >
+          <View style={styles.todoItem} key={todo.dueDate}>
+            <Text style={styles.todoItemText}>{todo.title}</Text>
+          </View>
+        </GestureRecognizer>
+      );
+    }
+  }
 
   render() {
     return (
@@ -47,6 +78,11 @@ class TodoListScreen extends Component {
               <Ionicons name="ios-add" size={36} />
             </Button>
           }
+        />
+        <ListView
+          loading={this.props.todoList.status.reading}
+          data={this.props.todoList ? this.props.todoList.todos : []}
+          renderRow={this.renderTodos.bind(this)}
         />
         <Modal
           visible={this.state.addTodoModalVisible}
@@ -66,7 +102,7 @@ class TodoListScreen extends Component {
             <Heading style={modalStyles.heading}>Lägg till att-göra</Heading>
             <CreateTodoForm
               style={modalStyles.form}
-              onSubmit={values => console.log(values)}
+              onSubmit={values => this.props.createTodo(values)}
             />
           </View>
         </Modal>
@@ -78,11 +114,12 @@ class TodoListScreen extends Component {
 function mapStateToProps(state) {
   return {
     schedule: state.schedule,
-    auth: state.auth
+    auth: state.auth,
+    todoList: state.todoList
   };
 }
 
 export default connect(
   mapStateToProps,
-  {}
+  { createTodo }
 )(TodoListScreen);
