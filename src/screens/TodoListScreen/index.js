@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { Text, Modal } from "react-native";
+import { Text, Modal, TouchableOpacity } from "react-native";
 import {
   NavigationBar,
   Screen,
@@ -42,6 +42,12 @@ class TodoListScreen extends Component {
     if (this.props.todoList.todos.length > 0) {
       return (
         <View style={styles.todoItem} key={todo.dueDate}>
+          <TouchableOpacity
+            style={styles.checkboxTouchable}
+            onPress={() => console.log("checked")}
+          >
+            <View style={styles.checkbox} />
+          </TouchableOpacity>
           <Text style={styles.todoItemText}>{todo.title}</Text>
         </View>
       );
