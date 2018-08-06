@@ -11,15 +11,13 @@ import {
   ListView
 } from "@shoutem/ui";
 import { Ionicons } from "@expo/vector-icons";
+
+import { createTodo, fetchTodos } from "../../redux/todoList/actions";
 import Input from "../../components/Input";
 import CreateTodoForm from "./components/CreateTodoForm";
-
-import { createTodo } from "../../redux/todoList/actions";
 import modalStyles from "./styles/modal.styles";
 import commonStyles from "../../styles/common.styles";
 import styles from "./styles/todoList.styles.js";
-// import { getFullSchedule } from '../../redux/schedule/actions';
-// import ClassCard from './components/ClassCard';
 
 class TodoListScreen extends Component {
   static navigationOptions = {
@@ -36,7 +34,9 @@ class TodoListScreen extends Component {
     };
   }
 
-  async componentWillMount() {}
+  async componentWillMount() {
+    await this.props.fetchTodos();
+  }
 
   renderTodos(todo) {
     if (this.props.todoList.todos.length > 0) {
@@ -69,7 +69,7 @@ class TodoListScreen extends Component {
           }
         />
         <ListView
-          loading={this.props.todoList.status.reading}
+          loading={this.props.todoList.status.fetching}
           data={this.props.todoList ? this.props.todoList.todos : []}
           renderRow={this.renderTodos.bind(this)}
         />
@@ -110,5 +110,5 @@ function mapStateToProps(state) {
 
 export default connect(
   mapStateToProps,
-  { createTodo }
+  { fetchTodos, createTodo }
 )(TodoListScreen);
