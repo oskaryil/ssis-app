@@ -19,15 +19,27 @@ const fetchTodos = () => async (dispatch, getState) => {
         Authorization: `${getState().auth.user.token}`
       }
     });
-    dispatch({ type: FETCH_TODOS_SUCCESS, todos: data });
+    return dispatch({ type: FETCH_TODOS_SUCCESS, todos: data });
   } catch (err) {
     dispatch({ type: FETCH_TODOS_FAIL, error: err });
   }
 };
 
-const createTodo = values => dispatch => {
+const createTodo = values => async (dispatch, getState) => {
   dispatch({ type: CREATE_TODO });
-  dispatch({ type: CREATE_TODO_SUCCESS, todo: values });
+  try {
+    const { data } = await axios({
+      method: "post",
+      url: `/todo`,
+      data: values,
+      headers: {
+        Authorization: `${getState().auth.user.token}`
+      }
+    });
+    dispatch({ type: CREATE_TODO_SUCCESS, todo: values });
+  } catch (err) {
+    dispatch({ type: CREATE_TODO_FAIL, error: err });
+  }
 };
 
 export { fetchTodos, createTodo };

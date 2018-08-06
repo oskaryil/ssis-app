@@ -13,7 +13,8 @@ const INITIAL_STATE = {
     creating: false,
     editing: false,
     deleting: false,
-    fetching: false
+    fetching: false,
+    loading: false
   },
   error: ""
 };
@@ -21,31 +22,39 @@ const INITIAL_STATE = {
 export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case FETCH_TODOS: {
-      return { ...state, status: { ...state.status, fetching: true } };
+      return {
+        ...state,
+        status: { ...state.status, fetching: true, loading: true }
+      };
     }
     case FETCH_TODOS_SUCCESS: {
       return {
         ...state,
-        status: { ...state.status, fetching: false },
+        status: { ...state.status, fetching: false, loading: false },
         todos: action.todos
       };
     }
     case FETCH_TODOS_FAIL: {
       return {
         ...state,
-        status: { ...state.status, fetching: false },
+        status: { ...state.status, fetching: false, loading: false },
         error: "Något gick fel"
       };
     }
     case CREATE_TODO: {
-      return { ...state, status: { ...state.status, creating: true } };
+      return {
+        ...state,
+        status: { ...state.status, creating: true, loading: true }
+      };
     }
     case CREATE_TODO_SUCCESS: {
       const todosCopy = state.todos;
+      console.log(todosCopy);
       todosCopy.push(action.todo);
+      console.log(todosCopy);
       return {
         ...state,
-        status: { ...state.status, creating: false },
+        status: { ...state.status, creating: false, loading: false },
         todos: todosCopy
       };
     }
@@ -53,7 +62,7 @@ export default (state = INITIAL_STATE, action) => {
       return {
         ...state,
         error: "Något gick fel",
-        status: { ...state.status, creating: false }
+        status: { ...state.status, creating: false, loading: false }
       };
     }
     default:
