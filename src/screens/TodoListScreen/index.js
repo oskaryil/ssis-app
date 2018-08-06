@@ -69,17 +69,16 @@ class TodoListScreen extends Component {
           }
         />
         <ListView
-          loading={this.props.todoList.status.fetching}
-          data={this.props.todoList ? this.props.todoList.todos : []}
+          loading={this.props.todoList.status.loading}
+          data={this.props.todoList.todos ? this.props.todoList.todos : []}
           renderRow={this.renderTodos.bind(this)}
+          onRefresh={this.props.fetchTodos}
         />
         <Modal
           visible={this.state.addTodoModalVisible}
           animationType="slide"
           transparent={false}
-          onRequestClose={() => {
-            alert("Modal has been closed.");
-          }}
+          onRequestClose={() => {}}
         >
           <View style={modalStyles.container}>
             <Button
@@ -91,7 +90,10 @@ class TodoListScreen extends Component {
             <Heading style={modalStyles.heading}>Lägg till att-göra</Heading>
             <CreateTodoForm
               style={modalStyles.form}
-              onSubmit={values => this.props.createTodo(values)}
+              onSubmit={async values => {
+                await this.props.createTodo(values);
+                this.setState({ addTodoModalVisible: false });
+              }}
             />
           </View>
         </Modal>
