@@ -1,4 +1,11 @@
-import { CREATE_TODO, CREATE_TODO_SUCCESS, CREATE_TODO_FAIL } from "./types";
+import {
+  CREATE_TODO,
+  CREATE_TODO_SUCCESS,
+  CREATE_TODO_FAIL,
+  FETCH_TODOS,
+  FETCH_TODOS_SUCCESS,
+  FETCH_TODOS_FAIL
+} from "./types";
 
 const INITIAL_STATE = {
   todos: [],
@@ -6,13 +13,30 @@ const INITIAL_STATE = {
     creating: false,
     editing: false,
     deleting: false,
-    reading: false
+    fetching: false
   },
   error: ""
 };
 
 export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
+    case FETCH_TODOS: {
+      return { ...state, status: { ...state.status, fetching: true } };
+    }
+    case FETCH_TODOS_SUCCESS: {
+      return {
+        ...state,
+        status: { ...state.status, fetching: false },
+        todos: action.todos
+      };
+    }
+    case FETCH_TODOS_FAIL: {
+      return {
+        ...state,
+        status: { ...state.status, fetching: false },
+        error: "Något gick fel"
+      };
+    }
     case CREATE_TODO: {
       return { ...state, status: { ...state.status, creating: true } };
     }
