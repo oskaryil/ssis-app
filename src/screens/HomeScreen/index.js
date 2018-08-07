@@ -45,7 +45,7 @@ class HomeScreen extends Component {
 
   componentWillMount() {
     this.props.getCurrentClass();
-    this.getLunchOfTheDay();
+    // this.getLunchOfTheDay();
     this.fetchRealtidForStop();
   }
 
