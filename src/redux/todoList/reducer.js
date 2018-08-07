@@ -4,11 +4,15 @@ import {
   CREATE_TODO_FAIL,
   FETCH_TODOS,
   FETCH_TODOS_SUCCESS,
-  FETCH_TODOS_FAIL
+  FETCH_TODOS_FAIL,
+  MARK_TODO_AS_DONE,
+  MARK_TODO_AS_DONE_SUCCESS,
+  MARK_TODO_AS_DONE_FAIL
 } from "./types";
 
 const INITIAL_STATE = {
   todos: [],
+  done: [],
   status: {
     creating: false,
     editing: false,
@@ -28,10 +32,14 @@ export default (state = INITIAL_STATE, action) => {
       };
     }
     case FETCH_TODOS_SUCCESS: {
+      const todosCopy = action.todos;
+      const todos = todosCopy.filter(todo => todo.done !== true);
+      const doneTodos = todosCopy.filter(todo => todo.done === true);
       return {
         ...state,
         status: { ...state.status, fetching: false, loading: false },
-        todos: action.todos
+        todos: todos,
+        done: doneTodos
       };
     }
     case FETCH_TODOS_FAIL: {
@@ -49,9 +57,7 @@ export default (state = INITIAL_STATE, action) => {
     }
     case CREATE_TODO_SUCCESS: {
       const todosCopy = state.todos;
-      console.log(todosCopy);
       todosCopy.push(action.todo);
-      console.log(todosCopy);
       return {
         ...state,
         status: { ...state.status, creating: false, loading: false },
@@ -63,6 +69,41 @@ export default (state = INITIAL_STATE, action) => {
         ...state,
         error: "Något gick fel",
         status: { ...state.status, creating: false, loading: false }
+      };
+    }
+    case MARK_TODO_AS_DONE: {
+      return {
+        ...state,
+        status: {
+          ...state.status,
+          loading: true
+        }
+      };
+    }
+    case MARK_TODO_AS_DONE_SUCCESS: {
+      const todosCopy = state.todos;
+      const doneCopy = state.done;
+      const unDoneTodos = todosCopy.filter(
+        todo => todo._id !== action.todo._id
+      );
+      doneCopy.push(action.todo);
+      return {
+        ...state,
+        status: {
+          ...state.status,
+          loading: false
+        },
+        todos: unDoneTodos,
+        done: doneCopy
+      };
+    }
+    case MARK_TODO_AS_DONE_FAIL: {
+      return {
+        ...state,
+        status: {
+          ...state.status,
+          loading: false
+        }
       };
     }
     default:

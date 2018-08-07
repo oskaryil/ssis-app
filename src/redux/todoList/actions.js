@@ -58,8 +58,9 @@ const markTodoAsDone = id => async (dispatch, getState) => {
     });
     dispatch({ type: MARK_TODO_AS_DONE_SUCCESS, todo: data.updatedTodo });
   } catch (err) {
+    console.log(err);
     dispatch({ type: MARK_TODO_AS_DONE_FAIL });
   }
 };
 
-export { fetchTodos, createTodo };
+export { fetchTodos, createTodo, markTodoAsDone };
