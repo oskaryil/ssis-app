@@ -36,7 +36,7 @@ const createTodo = values => async (dispatch, getState) => {
         Authorization: `${getState().auth.user.token}`
       }
     });
-    dispatch({ type: CREATE_TODO_SUCCESS, todo: values });
+    dispatch({ type: CREATE_TODO_SUCCESS, todo: data.todo });
   } catch (err) {
     dispatch({ type: CREATE_TODO_FAIL, error: err });
   }

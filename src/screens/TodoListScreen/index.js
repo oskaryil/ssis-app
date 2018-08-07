@@ -1,14 +1,13 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { Text, Modal, TouchableOpacity } from "react-native";
+import { Text, Modal, TouchableOpacity, FlatList } from "react-native";
 import {
   NavigationBar,
   Screen,
   ScrollView,
   Button,
   View,
-  Heading,
-  ListView
+  Heading
 } from "@shoutem/ui";
 import { Ionicons } from "@expo/vector-icons";
 
@@ -19,7 +18,7 @@ import modalStyles from "./styles/modal.styles";
 import commonStyles from "../../styles/common.styles";
 import styles from "./styles/todoList.styles.js";
 
-class TodoListScreen extends Component {
+class TodoListScreen extends React.PureComponent {
   static navigationOptions = {
     tabBarLabel: "Att göra",
     header: null,
@@ -40,21 +39,31 @@ class TodoListScreen extends Component {
 
   renderTodos(todo) {
     if (this.props.todoList.todos.length > 0) {
+      const { item } = todo;
       return (
-        <View style={styles.todoItem} key={todo.dueDate}>
+        <View style={styles.todoItem} key={item.dueDate}>
           <TouchableOpacity
             style={styles.checkboxTouchable}
-            onPress={() => console.log("checked")}
+            onPress={() => this.props.markAsDone(item._id)}
           >
             <View style={styles.checkbox} />
           </TouchableOpacity>
-          <Text style={styles.todoItemText}>{todo.title}</Text>
+          <Text style={styles.todoItemText}>{item.title}</Text>
         </View>
       );
     }
   }
 
+  _keyExtractor = (item, index) => item._id;
+
   render() {
+    if (this.props.todoList.status.loading) {
+      return (
+        <View>
+          <Text>Loading</Text>
+        </View>
+      );
+    }
     return (
       <Screen styleName="paper">
         <NavigationBar
@@ -68,11 +77,12 @@ class TodoListScreen extends Component {
             </Button>
           }
         />
-        <ListView
-          loading={this.props.todoList.status.loading}
+        <FlatList
           data={this.props.todoList.todos ? this.props.todoList.todos : []}
-          renderRow={this.renderTodos.bind(this)}
+          renderItem={this.renderTodos.bind(this)}
+          keyExtractor={this._keyExtractor}
           onRefresh={this.props.fetchTodos}
+          refreshing={this.props.todoList.status.fetching}
         />
         <Modal
           visible={this.state.addTodoModalVisible}
