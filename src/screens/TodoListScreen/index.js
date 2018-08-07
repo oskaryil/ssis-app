@@ -11,7 +11,11 @@ import {
 } from "@shoutem/ui";
 import { Ionicons } from "@expo/vector-icons";
 
-import { createTodo, fetchTodos } from "../../redux/todoList/actions";
+import {
+  createTodo,
+  fetchTodos,
+  markTodoAsDone
+} from "../../redux/todoList/actions";
 import Input from "../../components/Input";
 import CreateTodoForm from "./components/CreateTodoForm";
 import modalStyles from "./styles/modal.styles";
@@ -44,7 +48,7 @@ class TodoListScreen extends React.PureComponent {
         <View style={styles.todoItem} key={item.dueDate}>
           <TouchableOpacity
             style={styles.checkboxTouchable}
-            onPress={() => this.props.markAsDone(item._id)}
+            onPress={() => this.props.markTodoAsDone(item._id)}
           >
             <View style={styles.checkbox} />
           </TouchableOpacity>
@@ -122,5 +126,5 @@ function mapStateToProps(state) {
 
 export default connect(
   mapStateToProps,
-  { fetchTodos, createTodo }
+  { fetchTodos, createTodo, markTodoAsDone }
 )(TodoListScreen);
