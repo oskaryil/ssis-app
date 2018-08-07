@@ -6,7 +6,10 @@ import {
   FETCH_TODOS_FAIL,
   CREATE_TODO,
   CREATE_TODO_SUCCESS,
-  CREATE_TODO_FAIL
+  CREATE_TODO_FAIL,
+  MARK_TODO_AS_DONE,
+  MARK_TODO_AS_DONE_SUCCESS,
+  MARK_TODO_AS_DONE_FAIL
 } from "./types";
 
 const fetchTodos = () => async (dispatch, getState) => {
@@ -39,6 +42,23 @@ const createTodo = values => async (dispatch, getState) => {
     dispatch({ type: CREATE_TODO_SUCCESS, todo: data.todo });
   } catch (err) {
     dispatch({ type: CREATE_TODO_FAIL, error: err });
+  }
+};
+
+const markTodoAsDone = id => async (dispatch, getState) => {
+  dispatch({ type: MARK_TODO_AS_DONE });
+  try {
+    const { data } = await axios({
+      method: "patch",
+      url: `/todo/${id}`,
+      data: { done: true },
+      headers: {
+        Authorization: `${getState().auth.user.token}`
+      }
+    });
+    dispatch({ type: MARK_TODO_AS_DONE_SUCCESS, todo: data.updatedTodo });
+  } catch (err) {
+    dispatch({ type: MARK_TODO_AS_DONE_FAIL });
   }
 };
 
