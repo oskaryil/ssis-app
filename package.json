@@ -4,6 +4,7 @@
   "private": true,
   "devDependencies": {
     "jest-expo": "25.0.0",
+    "prettier": "^1.14.0",
     "react-native-scripts": "1.11.1",
     "react-test-renderer": "16.2.0"
   },
@@ -24,6 +25,7 @@
     "axios": "^0.17.1",
     "expo": "^25.0.0",
     "formik": "^0.11.4",
+    "moment": "^2.22.2",
     "react": "16.2.0",
     "react-native": "0.52.0",
     "react-native-collapsible": "^0.10.0",

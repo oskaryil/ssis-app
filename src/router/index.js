@@ -1,42 +1,14 @@
-import React from 'react';
-import { Ionicons } from '@expo/vector-icons';
-import { StackNavigator, TabNavigator, TabBarBottom } from 'react-navigation';
+import React from "react";
+import { Ionicons } from "@expo/vector-icons";
+import { StackNavigator, TabNavigator, TabBarBottom } from "react-navigation";
 
-import LoginScreen from '../screens/LoginScreen/login.screen';
-import FillOutInformationScreen from '../screens/FillOutInformationScreen';
-import HomeScreen from '../screens/HomeScreen';
-import LunchMenuScreen from '../screens/LunchMenuScreen';
-import SettingsScreen from '../screens/SettingsScreen';
-import ScheduleScreen from '../screens/ScheduleScreen';
-
-// export default TabNavigator( //   {
-//     Home: { screen: HomeScreen }
-//   },
-//   { //     navigationOptions: ({ navigation }) => ({
-//       tabBarIcon: ({ focused, tintColor }) => {
-//         const { routeName } = navigation.state;
-//         let iconName;
-//         if (routeName === 'Home') {
-//           iconName = `ios-home${focused ? '' : '-outline'}`;
-//         } else if (routeName === 'Settings') {
-//           iconName = `ios-options${focused ? '' : '-outline'}`;
-//         }
-//
-//         // You can return any component that you like here! We usually use an
-//         // icon component from react-native-vector-icons
-//         return <Ionicons name={iconName} size={25} color={tintColor} />;
-//       }
-//     }),
-//     tabBarOptions: {
-//       activeTintColor: 'tomato',
-//       inactiveTintColor: 'gray'
-//     },
-//     tabBarComponent: TabBarBottom,
-//     tabBarPosition: 'bottom',
-//     animationEnabled: false,
-//     swipeEnabled: false
-//   }
-// );
+import LoginScreen from "../screens/LoginScreen/login.screen";
+import FillOutInformationScreen from "../screens/FillOutInformationScreen";
+import HomeScreen from "../screens/HomeScreen";
+import LunchMenuScreen from "../screens/LunchMenuScreen";
+import SettingsScreen from "../screens/SettingsScreen";
+import ScheduleScreen from "../screens/ScheduleScreen";
+import TodoListScreen from "../screens/TodoListScreen";
 
 const SignedOutNav = StackNavigator({
   Login: { screen: LoginScreen },
@@ -52,9 +24,16 @@ const HomeStack = StackNavigator({
   }
 });
 
+const TodoListStack = StackNavigator({
+  TodoList: {
+    screen: TodoListScreen
+  }
+});
+
 const SignedInNav = TabNavigator(
   {
     Hem: { screen: HomeStack },
+    TodoList: { screen: TodoListStack },
     Lunch: { screen: LunchMenuScreen },
     Schema: { screen: ScheduleScreen }
   },
@@ -63,14 +42,16 @@ const SignedInNav = TabNavigator(
       tabBarIcon: ({ focused, tintColor }) => {
         const { routeName } = navigation.state;
         let iconName;
-        if (routeName === 'Hem') {
-          iconName = `ios-home${focused ? '' : '-outline'}`;
-        } else if (routeName === 'Settings') {
-          iconName = `ios-options${focused ? '' : '-outline'}`;
-        } else if (routeName === 'Lunch') {
-          iconName = `ios-restaurant${focused ? '' : '-outline'}`;
-        } else if (routeName === 'Schema') {
-          iconName = `ios-calendar${focused ? '' : '-outline'}`;
+        if (routeName === "Hem") {
+          iconName = `ios-home${focused ? "" : "-outline"}`;
+        } else if (routeName === "Settings") {
+          iconName = `ios-options${focused ? "" : "-outline"}`;
+        } else if (routeName === "Lunch") {
+          iconName = `ios-restaurant${focused ? "" : "-outline"}`;
+        } else if (routeName === "Schema") {
+          iconName = `ios-calendar${focused ? "" : "-outline"}`;
+        } else if (routeName === "TodoList") {
+          iconName = `ios-list${focused ? "-box" : ""}`;
         }
 
         // You can return any component that you like here! We usually use an
@@ -80,12 +61,12 @@ const SignedInNav = TabNavigator(
     }),
     // TODO: Choose between Tomato and #fcbf0a (school color)
     tabBarOptions: {
-      activeTintColor: '#007AFF',
-      inactiveTintColor: 'gray'
+      activeTintColor: "#007AFF",
+      inactiveTintColor: "gray"
     },
     tabBarComponent: TabBarBottom,
-    tabBarPosition: 'bottom',
-    animationEnabled: false,
+    tabBarPosition: "bottom",
+    animationEnabled: true,
     swipeEnabled: true
   }
 );

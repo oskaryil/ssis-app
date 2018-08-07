@@ -1,0 +1,9 @@
+export const CREATE_TODO = "create_todo";
+export const CREATE_TODO_SUCCESS = "create_todo_success";
+export const CREATE_TODO_FAIL = "create_todo_fail";
+export const FETCH_TODOS = "fetch_todos";
+export const FETCH_TODOS_SUCCESS = "fetch_todos_success";
+export const FETCH_TODOS_FAIL = "fetch_todos_fail";
+export const MARK_TODO_AS_DONE = "mark_todo_as_done";
+export const MARK_TODO_AS_DONE_SUCCESS = "mark_todo_as_done_success";
+export const MARK_TODO_AS_DONE_FAIL = "mark_todo_as_done_fail";

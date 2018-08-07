@@ -23,17 +23,21 @@
  *
  */
 
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { Text } from 'react-native';
-import { NavigationBar, Screen, ScrollView } from '@shoutem/ui';
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import { Text } from "react-native";
+import { NavigationBar, Screen, ScrollView } from "@shoutem/ui";
 
-import scheduleStyles from './schedule.styles';
-import commonStyles from '../../styles/common.styles';
-import { getFullSchedule } from '../../redux/schedule/actions';
-import ClassCard from './components/ClassCard';
+import scheduleStyles from "./schedule.styles";
+import commonStyles from "../../styles/common.styles";
+import { getFullSchedule } from "../../redux/schedule/actions";
+import ClassCard from "./components/ClassCard";
 
 class ScheduleScreen extends Component {
+  static navigationOptions = {
+    swipeEnabled: true
+  };
+
   constructor(props) {
     super(props);
   }
@@ -50,9 +54,9 @@ class ScheduleScreen extends Component {
         classTitle={singleClass.subject}
         classTime={`${singleClass.start_time}-${singleClass.end_time}`}
         classDescription={`${singleClass.participants
-          .split(',')
+          .split(",")
           .slice(2, 3)
-          .join('')}`}
+          .join("")}`}
       />
     ));
   }
@@ -67,7 +71,11 @@ class ScheduleScreen extends Component {
           style={scheduleStyles.container}
         >
           {this.props.schedule.schedule && this.renderClasses()}
-          {this.props.schedule.schedule.length === 0 && <Text style={scheduleStyles.noClassesText}>Inga lektioner idag!</Text> }
+          {this.props.schedule.schedule.length === 0 && (
+            <Text style={scheduleStyles.noClassesText}>
+              Inga lektioner idag!
+            </Text>
+          )}
         </ScrollView>
       </Screen>
     );
@@ -81,4 +89,7 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps, { getFullSchedule })(ScheduleScreen);
+export default connect(
+  mapStateToProps,
+  { getFullSchedule }
+)(ScheduleScreen);
